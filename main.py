@@ -1,8 +1,9 @@
-import pygame 
-import sys 
+import sys
 
-from config.constants import WIDTH, HEIGHT
+import pygame
+
 from chess.game import Game
+from config.constants import HEIGHT, WIDTH
 
 
 class Main:
@@ -19,6 +20,7 @@ class Main:
 
         while True:
             game.show_background(screen)
+            game.show_pieces(screen)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
