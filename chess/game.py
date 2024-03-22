@@ -1,6 +1,6 @@
 import pygame
 
-from config.constants import ROWS, COLS, COLOR_ONE, COLOR_TWO, SQUARE_SIZE
+from config.constants import ROWS, COLS, SQUARE_COLOR_ONE, SQUARE_COLOR_TWO, SQUARE_SIZE
 
 
 class Game:
@@ -12,8 +12,8 @@ class Game:
         for row in range(ROWS):
             for col in range(COLS):
                 if (row + col) % 2 == 0:
-                    color = COLOR_ONE
+                    color = SQUARE_COLOR_ONE
                 else:
-                    color = COLOR_TWO
+                    color = SQUARE_COLOR_TWO
 
                 pygame.draw.rect(screen, color, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE) )
