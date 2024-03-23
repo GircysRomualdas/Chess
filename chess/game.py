@@ -3,11 +3,13 @@ import pygame
 from config.constants import COLS, ROWS, SQUARE_COLOR_ONE, SQUARE_COLOR_TWO, SQUARE_SIZE
 
 from .board.board import Board
+from .dragger import Dragger
 
 
 class Game:
     def __init__(self):
         self.board = Board()
+        self.dragger = Dragger()
 
 
     def show_background(self, screen):
