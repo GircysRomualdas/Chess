@@ -11,6 +11,7 @@ class Game:
         self.board = Board()
         self.dragger = Dragger()
         self.next_player = 'white'
+        self.hoverd_square = None
 
 
     def show_background(self, screen):
@@ -58,8 +59,19 @@ class Game:
                 rect = (pos.col * SQUARE_SIZE, pos.row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
                 pygame.draw.rect(screen, color, rect)
     
+    
+    
+    def show_hover(self, screen):
+        if self.hoverd_square:
+            color = (0, 0, 204)
+            rect = (self.hoverd_square.col * SQUARE_SIZE, self.hoverd_square.row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
+            pygame.draw.rect(screen, color, rect, width = 3)
+    
+    
     def next_turn(self):
         self.next_player = 'white' if self.next_player == 'black' else 'black' 
 
 
+    def set_hover(self, row, col):
+        self.hoverd_square = self.board.squares[row][col]
                 
