@@ -1,7 +1,5 @@
 import pygame
-
 from config.constants import COLS, ROWS, SQUARE_COLOR_ONE, SQUARE_COLOR_TWO, SQUARE_SIZE
-
 from .board.board import Board
 from .dragger import Dragger
 
@@ -58,7 +56,6 @@ class Game:
                 color = (244, 247, 116) if (pos.row + pos.col) % 2 == 0 else (172, 195, 51)
                 rect = (pos.col * SQUARE_SIZE, pos.row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
                 pygame.draw.rect(screen, color, rect)
-    
     
     
     def show_hover(self, screen):
