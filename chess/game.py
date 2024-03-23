@@ -2,6 +2,7 @@ import pygame
 from config.constants import COLS, ROWS, SQUARE_COLOR_ONE, SQUARE_COLOR_TWO, SQUARE_SIZE
 from .board.board import Board
 from .dragger import Dragger
+from config.config import Config
 
 
 class Game:
@@ -10,16 +11,15 @@ class Game:
         self.dragger = Dragger()
         self.next_player = 'white'
         self.hoverd_square = None
+        self.config = Config()
 
 
     def show_background(self, screen):
+        theme = self.config.theme
+        
         for row in range(ROWS):
             for col in range(COLS):
-                if (row + col) % 2 == 0:
-                    color = SQUARE_COLOR_ONE
-                else:
-                    color = SQUARE_COLOR_TWO
-
+                color = theme.background.light if (row + col) % 2 == 0 else theme.background.dark
                 pygame.draw.rect(screen, color, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE) )
 
 
@@ -38,22 +38,26 @@ class Game:
                         
     
     def show_moves(self, screen):
+        theme = self.config.theme
+        
         if self.dragger.dragging:
             piece = self.dragger.piece
             
             for move in piece.moves:
-                color = '#C86464' if (move.final.row + move.final.col) % 2 == 0 else '#C84646'
+                color = theme.moves.light if (move.final.row + move.final.col) % 2 == 0 else theme.moves.dark
                 rect = (move.final.col * SQUARE_SIZE, move.final.row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
                 pygame.draw.rect(screen, color, rect)
     
     
     def show_last_move(self, screen):
+        theme = self.config.theme
+        
         if self.board.last_move:
             initial = self.board.last_move.initial
             final = self.board.last_move.final
             
             for pos in [initial, final]:
-                color = (244, 247, 116) if (pos.row + pos.col) % 2 == 0 else (172, 195, 51)
+                color = theme.trace.light if (pos.row + pos.col) % 2 == 0 else theme.trace.dark
                 rect = (pos.col * SQUARE_SIZE, pos.row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
                 pygame.draw.rect(screen, color, rect)
     
@@ -71,4 +75,8 @@ class Game:
 
     def set_hover(self, row, col):
         self.hoverd_square = self.board.squares[row][col]
+        
+        
+    def change_theme(self):
+        self.config.change_theme()
                 
