@@ -3,6 +3,7 @@
 Chess game in python using pygame.
 
 - Press 't' to change theme
+- Press 'r' to restart the game
 
 ## Commands for project
 

@@ -1,8 +1,9 @@
 import pygame
-from config.constants import COLS, ROWS, SQUARE_COLOR_ONE, SQUARE_COLOR_TWO, SQUARE_SIZE
+from config.constants import COLS, ROWS, SQUARE_COLOR_ONE, SQUARE_COLOR_TWO, SQUARE_SIZE, HEIGHT
 from .board.board import Board
 from .dragger import Dragger
 from config.config import Config
+from .board.square import Square
 
 
 class Game:
@@ -21,7 +22,17 @@ class Game:
             for col in range(COLS):
                 color = theme.background.light if (row + col) % 2 == 0 else theme.background.dark
                 pygame.draw.rect(screen, color, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE) )
-
+                if col == 0:
+                    color = theme.background.dark if row % 2 == 0 else theme.background.light
+                    labale = self.config.font.render(str(ROWS - row), 1, color)
+                    labale_pos = (5, 5 + row * SQUARE_SIZE)
+                    screen.blit(labale, labale_pos)
+                
+                if row == 7:
+                    color = theme.background.dark if (row + col) % 2 == 0 else theme.background.light
+                    labale = self.config.font.render(Square.get_alphacol(col), 1, color)
+                    labale_pos = (col * SQUARE_SIZE + SQUARE_SIZE - 20, HEIGHT - 20)
+                    screen.blit(labale, labale_pos)
 
     def show_pieces(self, screen):
         for row in range(ROWS):
@@ -74,9 +85,20 @@ class Game:
 
 
     def set_hover(self, row, col):
-        self.hoverd_square = self.board.squares[row][col]
+        if Square.in_range(row, col):
+            self.hoverd_square = self.board.squares[row][col]
         
         
     def change_theme(self):
         self.config.change_theme()
-                
+        
+    
+    def play_sound(self, captured = False):
+        if captured:
+            self.config.capture_sound.play()
+        else:
+            self.config.move_sound.play()
+            
+            
+    def reset(self):
+        self.__init__()
