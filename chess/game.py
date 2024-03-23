@@ -10,6 +10,7 @@ class Game:
     def __init__(self):
         self.board = Board()
         self.dragger = Dragger()
+        self.next_player = 'white'
 
 
     def show_background(self, screen):
@@ -45,7 +46,10 @@ class Game:
                 color = '#C86464' if (move.final.row + move.final.col) % 2 == 0 else '#C84646'
                 rect = (move.final.col * SQUARE_SIZE, move.final.row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
                 pygame.draw.rect(screen, color, rect)
-        
+    
+    
+    def next_turn(self):
+        self.next_player = 'white' if self.next_player == 'black' else 'black' 
 
 
                 
