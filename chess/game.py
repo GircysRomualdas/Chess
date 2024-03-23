@@ -48,6 +48,16 @@ class Game:
                 pygame.draw.rect(screen, color, rect)
     
     
+    def show_last_move(self, screen):
+        if self.board.last_move:
+            initial = self.board.last_move.initial
+            final = self.board.last_move.final
+            
+            for pos in [initial, final]:
+                color = (244, 247, 116) if (pos.row + pos.col) % 2 == 0 else (172, 195, 51)
+                rect = (pos.col * SQUARE_SIZE, pos.row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
+                pygame.draw.rect(screen, color, rect)
+    
     def next_turn(self):
         self.next_player = 'white' if self.next_player == 'black' else 'black' 
 

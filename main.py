@@ -24,6 +24,7 @@ class Main:
 
         while True:
             game.show_background(screen)
+            game.show_last_move(screen)
             game.show_moves(screen)
             game.show_pieces(screen)
 
@@ -44,6 +45,7 @@ class Main:
                             dragger.save_initial(event.pos)
                             dragger.drag_piece(piece)
                             game.show_background(screen)
+                            game.show_last_move(screen)
                             game.show_moves(screen)
                             game.show_pieces(screen)
                         
@@ -51,6 +53,7 @@ class Main:
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
                         game.show_background(screen)
+                        game.show_last_move(screen)
                         game.show_moves(screen)
                         game.show_pieces(screen)
                         dragger.update_blit(screen)
@@ -68,6 +71,7 @@ class Main:
                         if board.valid_move(dragger.piece ,move):
                             board.move(dragger.piece ,move)
                             game.show_background(screen)
+                            game.show_last_move(screen)
                             game.show_pieces(screen)
                             game.next_turn()
                         
