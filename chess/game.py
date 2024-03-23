@@ -35,6 +35,17 @@ class Game:
                         img_center = col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2
                         piece.texture_rect = img.get_rect(center = img_center)
                         screen.blit(img, piece.texture_rect)
+                        
+    
+    def show_moves(self, screen):
+        if self.dragger.dragging:
+            piece = self.dragger.piece
+            
+            for move in piece.moves:
+                color = '#C86464' if (move.final.row + move.final.col) % 2 == 0 else '#C84646'
+                rect = (move.final.col * SQUARE_SIZE, move.final.row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE)
+                pygame.draw.rect(screen, color, rect)
+        
 
 
                 

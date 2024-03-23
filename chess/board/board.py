@@ -19,33 +19,42 @@ class Board:
 
     def calc_moves(self, piece, row, col):
 
-        def knight_moves():
-            possible_moves = [
-                (row - 2, col + 1),
-                (row - 1, col + 2),
-                (row + 1, col + 2),
-                (row + 2, col + 1),
-                (row + 2, col - 1),
-                (row + 1, col - 2),
-                (row + 1, col - 2),
-                (row - 2, col - 1),
-            ]
+        # def knight_moves():
+        #     possible_moves = [
+        #         (row - 2, col + 1),
+        #         (row - 1, col + 2),
+        #         (row + 1, col + 2),
+        #         (row + 2, col + 1),
+        #         (row + 2, col - 1),
+        #         (row + 1, col - 2),
+        #         (row + 1, col - 2),
+        #         (row - 2, col - 1),
+        #     ]
 
-            for possible_move in possible_moves:
-                possible_move_row, possible_move_col = possible_move
+        #     for possible_move in possible_moves:
+        #         possible_move_row, possible_move_col = possible_move
 
-                if Square.in_range(possible_move_row, possible_move_col):
-                    if self.squares[possible_move_row][possible_move_col].is_empty_or_rival(piece.color):
-                        initial = Square(row, col)
-                        final = Square(possible_move_row, possible_move_col)
+        #         if Square.in_range(possible_move_row, possible_move_col):
+        #             if self.squares[possible_move_row][possible_move_col].is_empty_or_rival(piece.color):
+        #                 initial = Square(row, col)
+        #                 final = Square(possible_move_row, possible_move_col)
                         
-                        move = Move(initial, final)
-                        piece.add_move(move)
+        #                 move = Move(initial, final)
+        #                 piece.add_move(move)
+                        
+        def pawn_moves():
+            steps = 1 if piece.moved else 2
+            start = row + piece.dir
+            end = row + (piece.dir * (1 + steps))
+            
+            for move_row in range(start, end, piece.dir):
+                pass
 
         if isinstance(piece, Pawn):
-            pass
+            pawn_moves()
         elif isinstance(piece, Knight):
-            knight_moves()
+            # knight_moves()
+            Knight.piece_moves(row, col, piece, self.squares)
         elif isinstance(piece, Bishop):
             pass
         elif isinstance(piece, Rook):
