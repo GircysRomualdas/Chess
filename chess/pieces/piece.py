@@ -18,6 +18,10 @@ class Piece:
         else:
             self.value = value * -1
 
+    
+    def clear_moves(self):
+        self.moves = []
+        
 
     def set_texture(self, size = 80):
         self.texture = os.path.join(f'assets/images/pieces/{size}px/{self.color}_{self.name}.png')

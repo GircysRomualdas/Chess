@@ -4,6 +4,8 @@ import pygame
 
 from chess.game import Game
 from config.constants import HEIGHT, SQUARE_SIZE, WIDTH
+from chess.board.square import Square
+from chess.move import Move
 
 
 class Main:
@@ -43,7 +45,6 @@ class Main:
                         game.show_moves(screen)
                         game.show_pieces(screen)
                         
-
                 elif event.type == pygame.MOUSEMOTION:
                     if dragger.dragging:
                         dragger.update_mouse(event.pos)
@@ -53,6 +54,21 @@ class Main:
                         dragger.update_blit(screen)
 
                 elif event.type == pygame.MOUSEBUTTONUP:
+                    if dragger.dragging:
+                        dragger.update_mouse(event.pos)
+                        released_row = dragger.mouseY // SQUARE_SIZE
+                        released_col = dragger.mouseX // SQUARE_SIZE
+                        
+                        initial = Square(dragger.initial_row, dragger.initial_col)
+                        final = Square(released_row, released_col)
+                        move = Move(initial, final)
+                        
+                        if board.valid_move(dragger.piece ,move):
+                            board.move(dragger.piece ,move)
+                            game.show_background(screen)
+                            game.show_pieces(screen)
+                            
+                        
                     dragger.undrag_piece()
 
                 elif event.type == pygame.QUIT:
