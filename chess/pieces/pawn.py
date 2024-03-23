@@ -18,11 +18,11 @@ class Pawn(Piece):
         start = row + piece.dir
         end = row + (piece.dir * (1 + steps))
         
-        for posible_move_row in range(start, end, piece.dir):
-            if Square.in_range(posible_move_row):
-                if squares[posible_move_row][col].is_empty():
+        for possible_move_row in range(start, end, piece.dir):
+            if Square.in_range(possible_move_row):
+                if squares[possible_move_row][col].is_empty():
                     initial = Square(row, col)
-                    final = Square(posible_move_row, col)
+                    final = Square(possible_move_row, col)
                     move = Move(initial, final)
                     piece.add_move(move)
                 else:
@@ -30,14 +30,14 @@ class Pawn(Piece):
             else:
                 break
             
-        posible_move_row = row + piece.dir
-        posible_move_cols = [col - 1, col + 1]
+        possible_move_row = row + piece.dir
+        possible_move_cols = [col - 1, col + 1]
         
-        for posible_move_col in posible_move_cols:
-            if Square.in_range(posible_move_row, posible_move_col):
-                if squares[posible_move_row][posible_move_col].has_rival_piece(piece.color):
+        for possible_move_col in possible_move_cols:
+            if Square.in_range(possible_move_row, possible_move_col):
+                if squares[possible_move_row][possible_move_col].has_rival_piece(piece.color):
                     initial = Square(row, col)
-                    final = Square(posible_move_row, posible_move_col)
+                    final = Square(possible_move_row, possible_move_col)
                     move = Move(initial, final)
                     piece.add_move(move)
         
