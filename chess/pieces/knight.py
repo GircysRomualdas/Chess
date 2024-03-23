@@ -29,3 +29,4 @@ class Knight(Piece):
                         
                         move = Move(initial, final)
                         piece.add_move(move)
+                        

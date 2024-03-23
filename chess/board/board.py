@@ -28,6 +28,13 @@ class Board:
         if isinstance(piece, Pawn):
             self.check_promotion(piece, final)
         
+        if isinstance(piece, King):
+            if self.castling(initial, final):
+                diff = final.col - initial.col
+                rook = piece.left_rook if (diff < 0) else piece.right_rook
+                self.move(rook, rook.moves[-1])
+        
+        
         piece.moved = True 
         piece.clear_moves()
         self.last_move = move
@@ -40,7 +47,10 @@ class Board:
     def  check_promotion(self, piece, final):
         if final.row == 0 or final.row == 7:
             self.squares[final.row][final.col].piece = Queen(piece.color)
-        
+    
+    
+    def castling(self, initial, final):
+        return abs(initial.col - final.col) == 2
 
     def calc_moves(self, piece, row, col):
         if isinstance(piece, Pawn):
